@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ProposalAppXamarin.Views.TodoListPage"
+             Title="Todos"
+             x:Name="page">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <RefreshView
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+                <Grid>
+                    <Label 
+                        IsVisible="{Binding DoNotShowList}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Text="Nada por aqui"/>
+                    <CollectionView IsVisible="{Binding ShowList}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" ItemsSource="{Binding Todos}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem Text="Done" BackgroundColor="ForestGreen" 
+                                                       Command="{Binding BindingContext.CkeckCommand, Source={x:Reference page}}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem Text="Remove" BackgroundColor="Red" 
+                                                       Command="{Binding BindingContext.DeleteCommand, Source={x:Reference page}}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout Padding="10" Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding IsDone}"/>
+                                        <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Text}"  />
+                                    </StackLayout>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </RefreshView>
+            <Button 
+                AbsoluteLayout.LayoutBounds="0.95,0.95,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                FontFamily="{StaticResource PostFontIcon}"
+                CornerRadius="50"
+                HeightRequest="50"
+                WidthRequest="50"
+                BackgroundColor="Accent"
+                TextColor="White"
+                FontSize="25"
+                Clicked="Button_OnClicked"
+                Text=""></Button>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

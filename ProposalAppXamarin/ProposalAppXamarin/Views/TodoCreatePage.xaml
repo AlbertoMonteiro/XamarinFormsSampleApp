@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ProposalAppXamarin.Views.TodoCreatePage"
+             Title="New Item">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout 
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="SizeProportional"
+                Spacing="20" Padding="15">
+                <Label Text="Text" FontSize="Medium" />
+                <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
+            </StackLayout>
+            <Button 
+                AbsoluteLayout.LayoutBounds="0.95,0.95,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                FontFamily="{StaticResource PostFontIcon}"
+                CornerRadius="50"
+                HeightRequest="50"
+                WidthRequest="50"
+                BackgroundColor="Accent"
+                TextColor="White"
+                FontSize="25"
+                Command="{Binding SaveItemCommand}"
+                Text=""></Button>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>
