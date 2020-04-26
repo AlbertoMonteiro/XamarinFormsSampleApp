@@ -3,21 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:ProposalAppXamarin.ViewModels;assembly=ProposalAppXamarin"
              mc:Ignorable="d"
              x:Class="ProposalAppXamarin.Views.TodoListPage"
-             Title="Todos"
-             x:Name="page">
+             Title="Todos">
+    <ContentPage.BindingContext>
+        <viewModels:TodoListPageViewModel x:Name="viewModel"/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout>
             <RefreshView
-                AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="SizeProportional"
-            IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+                AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"
+                IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
                 <Grid>
-                    <Label 
-                        IsVisible="{Binding DoNotShowList}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
+                    <Label IsVisible="{Binding DoNotShowList}" VerticalOptions="Center" HorizontalOptions="Center"
                         Text="Nada por aqui"/>
                     <CollectionView IsVisible="{Binding ShowList}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" ItemsSource="{Binding Todos}" SelectionMode="None">
                         <CollectionView.ItemTemplate>
@@ -26,14 +25,14 @@
                                     <SwipeView.LeftItems>
                                         <SwipeItems Mode="Execute">
                                             <SwipeItem Text="Done" BackgroundColor="ForestGreen" 
-                                                       Command="{Binding BindingContext.CkeckCommand, Source={x:Reference page}}"
+                                                       Command="{Binding CheckCommand, Source={x:Reference viewModel}}"
                                                        CommandParameter="{Binding .}"/>
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
                                     <SwipeView.RightItems>
                                         <SwipeItems Mode="Execute">
                                             <SwipeItem Text="Remove" BackgroundColor="Red" 
-                                                       Command="{Binding BindingContext.DeleteCommand, Source={x:Reference page}}"
+                                                       Command="{Binding DeleteCommand, Source={x:Reference viewModel}}"
                                                        CommandParameter="{Binding .}"/>
                                         </SwipeItems>
                                     </SwipeView.RightItems>

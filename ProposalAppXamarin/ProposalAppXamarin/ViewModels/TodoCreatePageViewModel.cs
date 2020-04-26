@@ -1,29 +1,27 @@
-﻿using System.Threading.Tasks;
-using ProposalAppXamarin.Repositories;
+﻿using ProposalAppXamarin.Repositories;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ProposalAppXamarin.ViewModels
 {
     public class TodoCreatePageViewModel : BaseViewModel
     {
-        private readonly INavigation _navigation;
         private readonly ITodoRepository _repository = DependencyService.Get<ITodoRepository>();
 
-        public TodoCreatePageViewModel(INavigation navigation)
-        {
-            _navigation = navigation;
-            Item = new TodoItem();
-            SaveItemCommand = new Command(async () => await SaveItem());
-        }
+        public TodoCreatePageViewModel()
+            => SaveItemCommand = new Command(async () => await SaveItem());
+
+        public INavigation Navigation { get; set; }
+
+        public TodoItem Item { get; } = new TodoItem();
+
+        public Command SaveItemCommand { get; }
 
         private async Task SaveItem()
         {
             await _repository.AddItemAsync(Item);
-            await _navigation.PopModalAsync(true);
-            MessagingCenter.Send(Item, "Todo added");
+            var popModalAsync = await Navigation.PopModalAsync(true);
+            MessagingCenter.Send(this, "Todo added");
         }
-
-        public TodoItem Item { get; }
-        public Command SaveItemCommand { get; }
     }
 }

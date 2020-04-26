@@ -20,12 +20,7 @@ namespace ProposalAppXamarin.ViewModels
         public bool IsBusy
         {
             get => _isBusy;
-            set
-            {
-                SetProperty(ref _isBusy, value);
-                OnPropertyChanged(nameof(ShowList));
-                OnPropertyChanged(nameof(DoNotShowList));
-            }
+            set => SetProperty(ref _isBusy, value, nameof(IsBusy), nameof(ShowList), nameof(DoNotShowList));
         }
 
         public ObservableCollection<TodoItem> Todos { get; } = new ObservableCollection<TodoItem>();
@@ -36,7 +31,7 @@ namespace ProposalAppXamarin.ViewModels
 
         public Command DeleteCommand { get; }
 
-        public Command CkeckCommand { get; } = new Command<TodoItem>(CheckItem);
+        public Command CheckCommand { get; } = new Command<TodoItem>(CheckItem);
 
         private static void CheckItem(TodoItem todoItem)
             => todoItem.IsDone = !todoItem.IsDone;
@@ -45,8 +40,7 @@ namespace ProposalAppXamarin.ViewModels
         {
             Todos.Remove(todoItem);
             _repository.RemoveTodo(todoItem);
-            OnPropertyChanged(nameof(ShowList));
-            OnPropertyChanged(nameof(DoNotShowList));
+            OnPropertyChanged(nameof(ShowList), nameof(DoNotShowList));
         }
 
         public async Task LoadTodos()
