@@ -19,18 +19,22 @@
                 <Label Text="Text" FontSize="Medium" />
                 <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
             </StackLayout>
-            <Button 
+            <StackLayout
                 AbsoluteLayout.LayoutBounds="0.95,0.95,50,50"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                FontFamily="{StaticResource PostFontIcon}"
-                CornerRadius="50"
-                HeightRequest="50"
-                WidthRequest="50"
-                BackgroundColor="Accent"
-                TextColor="White"
-                FontSize="25"
-                Command="{Binding SaveItemCommand}"
-                Text=""/>
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <ActivityIndicator IsVisible="{Binding IsSaving}" IsRunning="{Binding IsSaving}"/>
+                <Button 
+                    IsVisible="{Binding IsNotSaving}"
+                    FontFamily="{StaticResource PostFontIcon}"
+                    CornerRadius="50"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    BackgroundColor="Accent"
+                    TextColor="White"
+                    FontSize="25"
+                    Command="{Binding SaveItemCommand}"
+                    Text=""/>
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace ProposalAppXamarin.ViewModels
+﻿namespace ProposalAppXamarin.ViewModels
 {
     public class TodoItem : BaseViewModel
     {

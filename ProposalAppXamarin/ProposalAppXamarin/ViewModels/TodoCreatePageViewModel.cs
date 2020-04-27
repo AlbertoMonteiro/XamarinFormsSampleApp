@@ -7,6 +7,7 @@ namespace ProposalAppXamarin.ViewModels
     public class TodoCreatePageViewModel : BaseViewModel
     {
         private readonly ITodoRepository _repository = DependencyService.Get<ITodoRepository>();
+        private bool _isSaving;
 
         public TodoCreatePageViewModel()
             => SaveItemCommand = new Command(async () => await SaveItem());
@@ -17,11 +18,21 @@ namespace ProposalAppXamarin.ViewModels
 
         public Command SaveItemCommand { get; }
 
+        public bool IsSaving
+        {
+            get => _isSaving;
+            set => SetProperty(ref _isSaving, value, nameof(IsSaving), nameof(IsNotSaving));
+        }
+
+        public bool IsNotSaving => !_isSaving;
+
         private async Task SaveItem()
         {
+            IsSaving = true;
             await _repository.AddItemAsync(Item);
-            var popModalAsync = await Navigation.PopModalAsync(true);
+            await Navigation.PopModalAsync(true);
             MessagingCenter.Send(this, "Todo added");
+            IsSaving = false;
         }
     }
 }

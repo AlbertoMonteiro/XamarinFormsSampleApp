@@ -8,6 +8,7 @@ namespace ProposalAppXamarin.ViewModels
     public class TodoListPageViewModel : BaseViewModel
     {
         private readonly ITodoRepository _repository = DependencyService.Get<ITodoRepository>();
+        private bool _isBusy;
 
         public TodoListPageViewModel()
         {
@@ -16,7 +17,6 @@ namespace ProposalAppXamarin.ViewModels
             MessagingCenter.Subscribe<TodoItem>(this, "Todo added", _ => IsBusy = true);
         }
 
-        bool _isBusy;
         public bool IsBusy
         {
             get => _isBusy;

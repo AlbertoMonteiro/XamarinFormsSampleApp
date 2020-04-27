@@ -6,9 +6,7 @@ namespace ProposalAppXamarin.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            params string[] otherProps)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName]string propertyName = "", params string[] otherProps)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return false;

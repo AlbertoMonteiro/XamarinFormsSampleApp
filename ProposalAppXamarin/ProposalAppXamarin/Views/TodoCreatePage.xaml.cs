@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using ProposalAppXamarin.ViewModels;
+using Xamarin.Forms;
 
 namespace ProposalAppXamarin.Views
 {
@@ -6,5 +7,12 @@ namespace ProposalAppXamarin.Views
     {
         public TodoCreatePage()
             => InitializeComponent();
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is TodoCreatePageViewModel viewModel)
+                viewModel.Navigation = Navigation;
+        }
     }
 }
